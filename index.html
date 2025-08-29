@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced Web Development Basics</title>
+  <style>
+    /* CSS Variables for easy theming */
+    :root {
+      --primary-color: #4f46e5;
+      --secondary-color: #6366f1;
+      --accent-color: #fbbf24;
+      --background-color: #f9fafb;
+      --text-color: #1f2937;
+      --text-light: #6b7280;
+      --border-radius: 12px;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --transition-speed: 0.3s;
+    }
+
+    /* Reset and base styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+    a:hover,
+    a:focus {
+      color: var(--accent-color);
+      outline: none;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgb(79 70 229 / 0.4);
+    }
+
+    header h1 {
+      font-size: 2.75rem;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
+    }
+
+    header p {
+      font-size: 1.25rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    main {
+      flex-grow: 1;
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2.5rem;
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    section h2 {
+      font-size: 1.9rem;
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    /* HTML Elements Showcase */
+    .html-elements > * {
+      margin-bottom: 1rem;
+    }
+
+    .html-elements h1,
+    .html-elements h2,
+    .html-elements h3,
+    .html-elements h4,
+    .html-elements h5,
+    .html-elements h6 {
+      color: var(--secondary-color);
+      font-weight: 700;
+    }
+
+    .html-elements p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+    }
+
+    /* Styled links */
+    .html-elements a {
+      font-weight: 600;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 2px;
+    }
+
+    /* Image styling */
+    .image-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.1);
+      transition: transform var(--transition-speed);
+      cursor: pointer;
+      max-height: 180px;
+      object-fit: cover;
+      flex: 1 1 250px;
+    }
+
+    .image-container img:hover,
+    .image-container img:focus {
+      transform: scale(1.05);
+      outline: none;
+      box-shadow: 0 10px 25px rgb(79 70 229 / 0.5);
+    }
+
+    /* Navigation Links */
+    nav {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    nav a {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgb(79 70 229 / 0.4);
+      transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background-color: var(--accent-color);
+      box-shadow: 0 6px 20px rgb(251 191 36 / 0.6);
+      outline: none;
+    }
+
+    /* Interactive Button */
+    .btn-interactive {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgb(79 70 229 / 0.5);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      align-self: center;
+      user-select: none;
+    }
+
+    .btn-interactive:hover,
+    .btn-interactive:focus {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgb(79 70 229 / 0.7);
+      outline: none;
+    }
+
+    .btn-interactive:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 20px rgb(79 70 229 / 0.5);
+    }
+
+    /* Sidebar - Learning Path */
+    aside {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: fit-content;
+    }
+
+    aside h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .day-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .day-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: default;
+      transition: background-color var(--transition-speed);
+      user-select: none;
+    }
+
+    .day-list li.current {
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 15px rgb(79 70 229 / 0.5);
+    }
+
+    .day-list li:not(.current):hover {
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      box-shadow: 0 4px 15px rgb(251 191 36 / 0.5);
+    }
+
+    .day-number {
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      font-weight: 700;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-weight: 300;
+      font-size: 0.9rem;
+      margin-top: auto;
+      box-shadow: 0 -4px 10px rgb(79 70 229 / 0.4);
+    }
+
+    footer a {
+      color: var(--accent-color);
+      margin: 0 0.5rem;
+      font-weight: 600;
+    }
+
+    footer a:hover,
+    footer a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>Advanced Web Development Basics</h1>
+    <p>Master foundational HTML, CSS, and JavaScript concepts with style and interactivity</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="html-elements-title" class="html-elements" id="html-elements">
+      <h2 id="html-elements-title">HTML Elements & Structure</h2>
+      <article>
+        <h3>Headings</h3>
+        <p>HTML provides six levels of headings, from <code>&lt;h1&gt;</code> (most important) to <code>&lt;h6&gt;</code> (least important). Use them to structure your content semantically.</p>
+        <h1>Heading Level 1</h1>
+        <h2>Heading Level 2</h2>
+        <h3>Heading Level 3</h3>
+      </article>
+
+      <article>
+        <h3>Paragraphs</h3>
+        <p>The <code>&lt;p&gt;</code> tag defines a paragraph of text. It is used to group sentences and provide readable blocks of content.</p>
+        <p>This is an example paragraph demonstrating how text is structured in HTML.</p>
+      </article>
+
+      <article>
+        <h3>Links</h3>
+        <p>The <code>&lt;a&gt;</code> tag creates hyperlinks to other pages or resources. Use the <code>href</code> attribute to specify the destination URL.</p>
+        <p>Example: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN HTML Documentation</a></p>
+      </article>
+
+      <article>
+        <h3>Images</h3>
+        <p>Images are embedded using the <code>&lt;img&gt;</code> tag with <code>src</code> and <code>alt</code> attributes. Always provide descriptive alt text for accessibility.</p>
+        <div class="image-container" role="list">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80" alt="Ocean waves crashing on the shore" role="listitem" tabindex="0" />
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="Person coding on a laptop" role="listitem" tabindex="0" />
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Responsive web design on multiple devices" role="listitem" tabindex="0" />
+        </div>
+      </article>
+    </section>
+
+    <section aria-labelledby="css-styling-title" id="css-styling">
+      <h2 id="css-styling-title">CSS Styling & Layout</h2>
+      <p>CSS allows you to style your webpage with colors, fonts, spacing, and layouts. This page uses CSS variables, flexbox, grid, and transitions for a modern look and feel.</p>
+      <nav aria-label="Quick navigation links">
+        <a href="#html-elements">HTML Basics</a>
+        <a href="#css-styling">CSS Styling</a>
+        <a href="#js-interaction">JavaScript Interaction</a>
+        <a href="https://css-tricks.com/" target="_blank" rel="noopener noreferrer">CSS Tricks</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer">MDN CSS Docs</a>
+      </nav>
+    </section>
+
+    <section aria-labelledby="js-interaction-title" id="js-interaction" class="js-interaction">
+      <h2 id="js-interaction-title">JavaScript Interaction</h2>
+      <p>JavaScript adds interactivity to your webpage. Click the button below to trigger a friendly alert message.</p>
+      <button class="btn-interactive" id="alertButton" aria-describedby="alertDesc">
+        Click Me!
+      </button>
+      <p id="alertDesc" class="sr-only">Triggers a JavaScript alert with a congratulatory message.</p>
+    </section>
+
+    <aside aria-label="9 day learning path" role="complementary">
+      <h3>9-Day Learning Path</h3>
+      <ul class="day-list">
+        <li class="current" tabindex="0"><span>Day 1: HTML Basics</span><span class="day-number">1</span></li>
+        <li tabindex="0"><span>Day 2: CSS Fundamentals</span><span class="day-number">2</span></li>
+        <li tabindex="0"><span>Day 3: CSS Layouts</span><span class="day-number">3</span></li>
+        <li tabindex="0"><span>Day 4: JavaScript Intro</span><span class="day-number">4</span></li>
+        <li tabindex="0"><span>Day 5: DOM Manipulation</span><span class="day-number">5</span></li>
+        <li tabindex="0"><span>Day 6: Responsive Design</span><span class="day-number">6</span></li>
+        <li tabindex="0"><span>Day 7: Forms & Validation</span><span class="day-number">7</span></li>
+        <li tabindex="0"><span>Day 8: Project Building</span><span class="day-number">8</span></li>
+        <li tabindex="0"><span>Day 9: Deployment</span><span class="day-number">9</span></li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© 2024 Web Development Basics | <a href="#html-elements">Back to top</a></p>
+  </footer>
+
+  <script>
+    // JavaScript: Button alert interaction with accessibility considerations
+    const alertButton = document.getElementById('alertButton');
+
+    alertButton.addEventListener('click', () => {
+      alert(
+        '🎉 Congratulations!\n\nYou triggered your first JavaScript alert.\n\nThis demonstrates how JavaScript can respond to user actions.'
+      );
+    });
+
+    // Optional: Keyboard accessibility for day list items (focus styles handled by browser)
+  </script>
+
+  <style>
+    /* Screen reader only text */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</body>
+</html>
